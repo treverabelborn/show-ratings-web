@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Find a Show</title>
+        <title>Ratings Scraper</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="http://requirejs.org/docs/release/2.1.5/comments/require.js"></script>
         <script type="text/javascript">
@@ -16,9 +16,17 @@
     <body class="bg-black text-white">
         <div class="m-auto max-w-max">
             <h1 class="text-5xl font-bold my-28">
-                Find Your Next Binge
+                What's good on Netflix?
             </h1>
-            <div id="showsDiv"></div>
+            <div id="controls">
+                <label for="sortControls">Sort by:</label>
+                <select id="sortControls" name="options" class="bg-black text-white">
+                    <option value="criticRating">Critic Rating</option>
+                    <option value="audienceRating">Audience Rating</option>
+                    <option value="avgRating">Average Rating</option>
+                </select>
+            </div>
+            <div id="shows"></div>
         </div>
     </body>
 </html>
