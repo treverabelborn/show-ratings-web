@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Find a Show</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="http://requirejs.org/docs/release/2.1.5/comments/require.js"></script>
+        <script type="text/javascript">
+            require.config({
+                paths: {
+                    "papa-parse": "https://unpkg.com/papaparse@5.4.1/papaparse.min"
+                },
+            });
+        </script>
+        <script src="main.js"></script>
+    </head>
+    <body class="bg-black text-white">
+        <div class="m-auto max-w-max">
+            <h1 class="text-5xl font-bold my-28">
+                Find Your Next Binge
+            </h1>
+            <div id="showsDiv"></div>
+        </div>
+    </body>
+</html>
