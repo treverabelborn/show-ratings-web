@@ -64,7 +64,7 @@ function getShowElement(show) {
     const container = document.createElement('div');
     container.classList.add('flex');
     container.classList.add('justify-between');
-    container.classList.add('items-center');
+    // container.classList.add('items-center');
     container.classList.add('mb-8');
     container.style.width = '800px'
 

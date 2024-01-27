@@ -14,13 +14,14 @@
         <script src="main.js"></script>
     </head>
     <body class="bg-black text-white">
-        <div class="m-auto max-w-max">
-            <h1 class="text-5xl font-bold my-28">
+        <div class="m-auto max-w-max mt-24">
+            <h1 class="text-5xl font-bold">
                 What's good on Netflix?
             </h1>
-            <div id="controls">
-                <label for="sortControls">Sort by:</label>
-                <select id="sortControls" name="options" class="bg-black text-white" onchange="onPageLoad()">
+            <div class="text-2xl mt-10 mb-20" id="controls">
+                <label class="mr-2">Sort By:</label>
+                <select id="sortControls" name="options" onchange="onPageLoad()"
+                    class="bg-black text-white border-4 py-1 border-black rounded hover:cursor-pointer hover:bg-gray-800 hover:border-gray-800">
                     <option value="criticRating">Critic Rating</option>
                     <option value="audienceRating">Audience Rating</option>
                     <option value="avgRating">Average Rating</option>
