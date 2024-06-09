@@ -22,7 +22,6 @@ function fetchShows(url, papaParse, showsDiv, sortKey) {
 }
 
 function sortShows(shows, sortKey) {
-    console.log(shows);
     switch(sortKey) {
         // Add second sorting order
         case 'criticRating': return shows.sort(sortByCriticRating);
@@ -33,15 +32,16 @@ function sortShows(shows, sortKey) {
 }
 
 function sortByCriticRating(a, b) {
-    if (Number(b.critic_rating) - Number(a.critic_rating) === 0)
-        return Number(b.audience_rating) - Number(a.audience_rating);
-    return Number(b.critic_rating) - Number(a.critic_rating);
+    console.log(parse_rating(b.critic_rating))
+    if (parse_rating(b.critic_rating) - parse_rating(a.critic_rating) === 0)
+        return parse_rating(b.audience_rating) - parse_rating(a.audience_rating);
+    return parse_rating(b.critic_rating) - parse_rating(a.critic_rating);
 }
 
 function sortByAudienceRating(a, b) {
-    if (Number(b.audience_rating) - Number(a.audience_rating) === 0)
-        return Number(b.critic_rating) - Number(a.critic_rating);
-    return Number(b.audience_rating) - Number(a.audience_rating);
+    if (parse_rating(b.audience_rating) - parse_rating(a.audience_rating) === 0)
+        return parse_rating(b.critic_rating) - parse_rating(a.critic_rating);
+    return parse_rating(b.audience_rating) - parse_rating(a.audience_rating);
 }
 
 function sortByAverageRating(a, b) {
@@ -49,12 +49,19 @@ function sortByAverageRating(a, b) {
 }
 
 function getAvgRating(show) {
-    const c = Number(show.critic_rating);
-    const a = Number(show.audience_rating);
+    const c = parse_rating(show.critic_rating);
+    const a = parse_rating(show.audience_rating);
     if (!a && !c) return 0;
     if (!c) return a;
     if (!a) return c;
     return (a + c) / 2;
+}
+
+function parse_rating(r) {
+    if (!r) return 0;
+    r_trimmed = r.trim();
+    r_numeric = r_trimmed.substring(0, r_trimmed.indexOf('%'))
+    return Number(r_numeric);
 }
 
 function getShowElement(show) {
@@ -64,46 +71,52 @@ function getShowElement(show) {
     const container = document.createElement('div');
     container.classList.add('flex');
     container.classList.add('justify-between');
-    // container.classList.add('items-center');
     container.classList.add('mb-8');
     container.style.width = '800px'
 
     // info container
     const infoContainer = document.createElement('div');
+    infoContainer.classList.add('flex');
+    infoContainer.classList.add('flex-col');
+    infoContainer.classList.add('justify-between');
+    infoContainer.classList.add('pb-8');
 
     // title
     const showTitle = document.createElement('h2');
     showTitle.innerHTML = show.title;
     showTitle.classList.add('text-3xl');
     showTitle.classList.add('underline');
-    showTitle.classList.add('mb-8');
 
     // ratings
+    const ratingsContainer = document.createElement('div');
     const criticRating = document.createElement('h3');
-    criticRating.innerHTML = (`Critic Rating: ${show.critic_rating ? `${show.critic_rating}%` : '--'}`);
+    criticRating.innerHTML = (`Critic Rating: ${show.critic_rating.trim() ? `${show.critic_rating}` : '--'}`);
     criticRating.classList.add('text-2xl');
     const audienceRating = document.createElement('h3');
-    audienceRating.innerHTML = (`Audience Rating: ${show.audience_rating ? `${show.audience_rating}%` : '--'}`);
+    audienceRating.innerHTML = (`Audience Rating: ${show.audience_rating.trim() ? `${show.audience_rating}` : '--'}`);
     audienceRating.classList.add('text-2xl');
+    ratingsContainer.appendChild(criticRating);
+    ratingsContainer.appendChild(audienceRating);
     
     // image
     const showImage = document.createElement('img');
     showImage.src = show.thumbnail_url;
     showImage.classList.add('h-52');
 
-    // compose container
     infoContainer.appendChild(showTitle);
-    infoContainer.appendChild(criticRating);
-    infoContainer.appendChild(audienceRating);
-    
+
     // trailer link
     if (show.trailer_url) {
         const trailerLink = document.createElement('a');
         trailerLink.target = '_blank';
         trailerLink.href = show.trailer_url;
         trailerLink.innerHTML = 'Watch Trailer';
+        trailerLink.classList.add('text-blue-400')
+        trailerLink.classList.add('self-start')
+        trailerLink.classList.add('underline')
         infoContainer.appendChild(trailerLink);
     }
+    infoContainer.appendChild(ratingsContainer);
     
     container.appendChild(infoContainer);
     container.appendChild(showImage);

@@ -3,7 +3,7 @@
     <head>
         <title>Ratings Scraper</title>
         <script src="https://cdn.tailwindcss.com"></script>
-        <script src="http://requirejs.org/docs/release/2.1.5/comments/require.js"></script>
+        <script src="https://requirejs.org/docs/release/2.1.5/comments/require.js"></script>
         <script type="text/javascript">
             require.config({
                 paths: {
@@ -22,9 +22,9 @@
                 <label class="mr-2">Sort By:</label>
                 <select id="sortControls" name="options" onchange="onPageLoad()"
                     class="bg-black text-white border-4 py-1 border-black rounded hover:cursor-pointer hover:bg-gray-800 hover:border-gray-800">
+                    <option value="avgRating">Overall Rating</option>
                     <option value="criticRating">Critic Rating</option>
                     <option value="audienceRating">Audience Rating</option>
-                    <option value="avgRating">Average Rating</option>
                 </select>
             </div>
             <div id="shows"></div>
